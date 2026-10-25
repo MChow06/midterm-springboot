@@ -9,6 +9,13 @@ pipeline {
             }
         }
 
+        stage('Check Java') {
+            steps {
+                sh 'java -version'
+                sh 'echo $JAVA_HOME'
+            }
+        }
+
         stage('Build Fat JAR') {
             steps {
                 sh 'chmod +x gradlew'
