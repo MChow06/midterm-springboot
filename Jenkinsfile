@@ -1,19 +1,28 @@
+
 pipeline {
     agent any
 
     stages {
         stage('Checkout Source') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/MChow06/midterm-springboot.git'
+                echo 'Source code checked out from GitHub'
             }
         }
 
         stage('Build Fat JAR') {
             steps {
-                sh 'chmod +x mvnw || true'
-                sh './mvnw clean package'
+                sh 'chmod +x gradlew'
+                sh './gradlew clean bootJar'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Spring Boot JAR built successfully!'
+        }
+        failure {
+            echo 'Build failed. Check the console output.'
         }
     }
 }
